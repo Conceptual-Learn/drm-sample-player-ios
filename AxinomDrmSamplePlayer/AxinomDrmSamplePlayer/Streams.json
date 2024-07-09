@@ -1,5 +1,27 @@
 [
   {
+    "title": "Normal Licence",
+    
+    "videoUrl": "https://video.gumlet.io/667d187c0fe372ddb1af923d/6684c88b5520f5d69dca952d/main.m3u8",
+    
+    "licenseServer": "https://fairplay.gumlet.com/licence/65e816bbb452c86f03c39dad/6684c88b5520f5d69dca952d?expires=1720854439000&token=4f3aac223793ec2a57e9aeef1b0ed91f9e28a313",
+    
+    "fpsCertificateUrl": "https://fairplay.gumlet.com/certificate/65e816bbb452c86f03c39dad",
+    
+    "licenseToken": ""
+  },
+  {
+    "title": "Offline Licence",
+    
+    "videoUrl": "https://video.gumlet.io/667d187c0fe372ddb1af923d/6684c88b5520f5d69dca952d/main.m3u8",
+    
+    "licenseServer": "https://fairplay.gumlet.com/licence/65e816bbb452c86f03c39dad/6684c88b5520f5d69dca952d?expires=1720854414000&rental_duration=1296000&playback_duration=1296000&token=dd57583153f90af92140fdf5e3c0a050aa60930f",
+    
+    "fpsCertificateUrl": "https://fairplay.gumlet.com/certificate/65e816bbb452c86f03c39dad",
+    
+    "licenseToken": ""
+  },
+  {
     "title": "Apple demo video: Basic stream - Clear",
     
     "videoUrl": "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8",

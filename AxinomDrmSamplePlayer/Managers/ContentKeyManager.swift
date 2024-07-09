@@ -138,8 +138,8 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
         }
 
         let keyId = contentIdentifier.components(separatedBy: ":")[0]
-        let keyIV = contentIdentifier.components(separatedBy: ":")[1]
-        
+//        let keyIV = contentIdentifier.components(separatedBy: ":")[1]
+        let keyIV = ""
         /*
          Console output
         */
@@ -336,7 +336,7 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
         }
         
         let keyId = contentIdentifier.components(separatedBy: ":")[0]
-        let keyIV = contentIdentifier.components(separatedBy: ":")[1]
+        let keyIV = ""
         
         /*
          Console output
@@ -661,7 +661,6 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
     }
     
     func requestContentKeyFromKeySecurityModule(spcData: Data) throws -> Data {
-        var ckcData: Data? = nil
         
         guard let url = URL(string: licensingServiceUrl) else {
             postToConsole("ERROR: missingLicensingServiceUrl")
@@ -674,8 +673,15 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
         */
         var ksmRequest = URLRequest(url: url)
         ksmRequest.httpMethod = "POST"
-        ksmRequest.setValue(licensingToken, forHTTPHeaderField: "X-AxDRM-Message")
-        ksmRequest.httpBody = spcData
+        ksmRequest.setValue("application/json", forHTTPHeaderField: "Content-Type") //Jitender
+        
+        //SPC Value Jitender
+        let json: [String: Any] = ["spc": spcData.base64EncodedString()]
+        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
+        //
+        
+        ksmRequest.httpBody = jsonData
+        
         
         let (data, response, error) = URLSession.shared.synchronousDataTask(urlRequest: ksmRequest)
         
@@ -703,14 +709,12 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
             """
             self.postToConsole("CKC response custom headers:\n \(CKCResponseString)")
         }
+       
+        let data2 = Data(base64Encoded: data!.base64EncodedString())!
+        let jsonObject = try! JSONSerialization.jsonObject(with: data2, options: []) as! [String: Any]
+        let ckcValue = jsonObject["ckc"] as! String
+        let ckcData = Data(base64Encoded: ckcValue)!
         
-        ckcData = data
-
-        guard ckcData != nil else {
-            self.postToConsole("ERROR: No CKC returned By KSM")
-            throw ProgramError.noCKCReturnedByKSM
-        }
-        
-        return ckcData!
+        return ckcData
     }
 }
