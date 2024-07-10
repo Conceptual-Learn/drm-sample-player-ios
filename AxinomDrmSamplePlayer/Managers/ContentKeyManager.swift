@@ -586,7 +586,8 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
             return
         }
         
-        let keyIV = contentIdentifier.components(separatedBy: ":")[1]
+//        let keyIV = contentIdentifier.components(separatedBy: ":")[1]
+        let keyIV = ""
         
         if persistableContentKeyExistsOnDisk(withAssetName: assetName, withContentKeyIV: keyIV) {
             postToConsole("Deleting content key for \(assetName) - \(keyIV): Persistable content key exists on disk")
