@@ -139,7 +139,7 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
 
         let keyId = contentIdentifier.components(separatedBy: ":")[0]
 //        let keyIV = contentIdentifier.components(separatedBy: ":")[1]
-        let keyIV = ""
+        let keyIV = keyId + "iv"
         /*
          Console output
         */
@@ -336,7 +336,7 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
         }
         
         let keyId = contentIdentifier.components(separatedBy: ":")[0]
-        let keyIV = ""
+        let keyIV = keyId + "iv"
         
         /*
          Console output
@@ -586,8 +586,8 @@ class ContentKeyManager: NSObject, AVContentKeySessionDelegate {
             return
         }
         
-//        let keyIV = contentIdentifier.components(separatedBy: ":")[1]
-        let keyIV = ""
+        let keyId = contentIdentifier.components(separatedBy: ":")[0]
+        let keyIV = keyId + "iv"
         
         if persistableContentKeyExistsOnDisk(withAssetName: assetName, withContentKeyIV: keyIV) {
             postToConsole("Deleting content key for \(assetName) - \(keyIV): Persistable content key exists on disk")
